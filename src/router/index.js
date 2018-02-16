@@ -3,10 +3,11 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 
 import Agenda from '@/components/Agenda'
-//import Hoy from '@/components/Hoy'
+import Hoy from '@/components/Hoy'
 import Categoria from '@/components/Categoria'
 import Api from '@/components/Api'
 import Pokeapi from '@/components/Pokeapi'
+import Pokemon from '@/components/Pokemon'
 
 Vue.use(Router)
 
@@ -21,22 +22,13 @@ export default new Router({
       path: '/agenda',
       name: 'Agenda',
       component: Agenda,
-      /*children: [
+      children: [
         {
-          path: '',
-          name: 'Agenda',
-          component: Agenda,
-          // a meta field
-          //meta: { requiresAuth: true }
-        },
-        {
-          path: 'hoy',
-          name: 'Hoy',
-          component: Hoy,
-          // a meta field
-          //meta: { requiresAuth: true }
+            //agenda/hoy
+            path: 'hoy',
+            component: Hoy
         }
-      ]*/
+      ]
     },
     {
       path: '/categoria',
@@ -52,6 +44,12 @@ export default new Router({
       path: '/pokeapi',
       name: 'Pokeapi',
       component: Pokeapi
+    },
+    {
+      path: '/pokemon/:nombre_pokemon',
+      name: 'Pokemon',
+      component: Pokemon,
+      props: true
     }
   ]
 })

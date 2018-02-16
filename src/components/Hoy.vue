@@ -1,3 +1,6 @@
 <template>
-	<h1>Hoy</h1>
+	<div>
+		<h1>Hoy</h1>
+		<slot></slot>
+	</div>
 </template>

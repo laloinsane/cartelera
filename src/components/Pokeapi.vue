@@ -4,10 +4,16 @@
   	<div>
   	  	<div class="pokemon" v-for="pokemon in pokemons">
   	  		<h3>Titulo: {{ pokemon.name }}</h3>
+  	  		
+
+          <router-link :to="{ path: 'pokemon/'+pokemon.name }">{{pokemon.name}}</router-link>
+
   	  		<p>Descripción: {{pokemon.url}}</p>
   		</div>
   	</div>
   </div>
+
+  
 </template>
 
 <script>
