@@ -1,13 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-
-import Agenda from '@/components/Agenda'
-import Hoy from '@/components/Hoy'
-import Categoria from '@/components/Categoria'
-import Api from '@/components/Api'
-import Pokeapi from '@/components/Pokeapi'
-import Pokemon from '@/components/Pokemon'
+import Inicio from '@/components/Inicio'
+import Categorias from '@/components/Categorias'
+import ListadoActividades from '@/components/ListadoActividades'
+import Actividad from '@/components/Actividad'
 
 Vue.use(Router)
 
@@ -15,41 +11,26 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Inicio',
+      component: Inicio
     },
+   
     {
-      path: '/agenda',
-      name: 'Agenda',
-      component: Agenda,
-      children: [
-        {
-            //agenda/hoy
-            path: 'hoy',
-            component: Hoy
-        }
-      ]
+      path: '/categorias',
+      name: 'Categorias',
+      component: Categorias
     },
+
     {
-      path: '/categoria',
-      name: 'Categoria',
-      component: Categoria
+      path: '/listado-actividades',
+      name: 'ListadoActividades',
+      component: ListadoActividades
     },
-    {
-      path: '/api',
-      name: 'Api',
-      component: Api
-    },
-    {
-      path: '/pokeapi',
-      name: 'Pokeapi',
-      component: Pokeapi
-    },
-    {
+  /*  {
       path: '/pokemon/:nombre_pokemon',
       name: 'Pokemon',
       component: Pokemon,
       props: true
-    }
+    }*/
   ]
 })
