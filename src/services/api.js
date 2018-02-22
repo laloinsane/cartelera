@@ -11,5 +11,6 @@ let getCategorias = () => {
 }
 
 export {
-    getActividades
+    getActividades,
+    getCategorias
 }
