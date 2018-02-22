@@ -1,14 +1,13 @@
 <template>
-  <div class="hello">
+  <div>
     <h1>{{ msg }}</h1>
     <h2>App cartelera de actividades culturales</h2>
-    
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Inicio',
+  name: 'InicioView',
   data () {
     return {
       msg: 'Bienvenidos'
@@ -16,8 +15,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
