@@ -53,11 +53,20 @@ export default {
     filter: ''
     }
   },
-  created () {
+created () {
     getActividades().then(response => {
       //console.log(response.data)
-      this.actividades = response.data
-    }).catch(err => console.error(err))
+        this.actividades = response.data
+        this.actividades.forEach(element => {
+           if(element.RutaImg==null){
+             element.RutaImg = 'https://instagram.fpmc1-1.fna.fbcdn.net/vp/62e7efa2ab7b169f89e5cfdd144f13a3/5B4D39AE/t51.2885-15/e35/26303153_1993871283961664_3279091338745741312_n.jpg';
+            } 
+            element.cuantoFalta = ''// moment(element.Fecha).diff ...
+            element.fechaLAnzamiento =''// moment(element.Creado?El).diff ..
+        }); 
+        console.log(this.actividades)
+    })
+    .catch(err => console.error(err))
   },
   computed: {
     filteredActividad () {
