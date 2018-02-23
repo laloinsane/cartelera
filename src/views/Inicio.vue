@@ -1,19 +1,38 @@
 <template>
-  <div class="uk-section uk-section-default">
-    <div class="uk-container uk-container-center uk-text-center">
-      <h1>{{ msg }}</h1>
-      <h2>App cartelera de actividades culturales</h2>
-    </div>
+<section>
+  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slideshow="animation: fade">
+    <ul class="uk-slideshow-items">
+      <li v-for="(item, index) in actividades"
+        :key="index"
+        v-if="actividades && actividades.length > 0 && index <= limited">
+          <img :src="item.RutaImg" alt="" uk-cover>
+          <div class="uk-overlay uk-overlay-primary uk-position-right uk-text-center uk-transition-slide-right uk-width-medium">
+            <h3 class="uk-margin-remove">{{item.actividad}}</h3>
+            <p class="uk-margin-remove">{{item.Descripcion}}</p>
+          </div>
+      </li>
+    </ul>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
   </div>
+</section>
 </template>
 
 <script>
+import {getActividades} from '@/services/api'
 export default {
   name: 'InicioView',
   data () {
     return {
-      msg: 'Bienvenidos'
+      actividades: [],
+      limited:4
     }
-  }
+  },
+  created () {
+    getActividades().then(response => {
+      //console.log(response.data)
+      this.actividades = response.data
+    }).catch(err => console.error(err))
+  },
 }
 </script>
