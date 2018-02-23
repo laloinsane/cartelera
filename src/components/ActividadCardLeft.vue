@@ -6,9 +6,9 @@
       </div>
       <div>
           <div class="uk-card-body">
-              <h3 class="uk-card-title"> {{ actividad.actividad }}</h3>
+            <div class="uk-card-badge uk-label" :style="{ background: actividad.color_area + '!important' }">{{ actividad.area }}</div>
+              <h3 class="uk-card-title mar-top"> {{ actividad.actividad }}</h3>
               <p>{{ actividad.Fecha_ini }}</p>
-              <p>{{ actividad.area }}</p>
               <p>{{ actividad.Descripcion }}</p>
           </div>
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'ActividadCard',
+  name: 'ActividadCardLeft',
   props: {
     actividad: {
       type: Object,
@@ -26,3 +26,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.mar-top {
+  margin-top: 40px !important;
+}
+</style>

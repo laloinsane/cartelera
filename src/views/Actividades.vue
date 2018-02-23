@@ -22,19 +22,27 @@
       <div class="uk-container uk-container-center uk-text-center">
         <label class="uk-form-label uk-text-large">Listado de actividades:</label>
         <ul class="uk-list">
-          <li v-for="actividad in filteredActividad" 
-              :key="actividad.id" 
-              @click.prevent="goToActividad(actividad)">
-              <actividad-card :actividad="actividad"></actividad-card>
+          <li v-for="(item, index) in filteredActividad"
+            :key="index"
+            @click.prevent="goToActividad(item)">
+            <section v-if="(index % 2) === 0">
+              <actividad-card-right :actividad="item"></actividad-card-right>
+            </section>
+            <section v-else>
+              <actividad-card-left :actividad="item"></actividad-card-left>
+            </section>
           </li>
         </ul>
       </div>
     </div>
+    
   </section>
 </template>
 
 <script>
 import ActividadCard from '@/components/ActividadCard'
+import ActividadCardRight from '@/components/ActividadCardRight'
+import ActividadCardLeft from '@/components/ActividadCardLeft'
 import {getActividades} from '@/services/api'
 import _ from 'lodash'
 export default {
@@ -71,7 +79,9 @@ export default {
     }
   },
   components: {
-    ActividadCard
+    ActividadCard,
+    ActividadCardRight,
+    ActividadCardLeft
   }
 }
 </script>
