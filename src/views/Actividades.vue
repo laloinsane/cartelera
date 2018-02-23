@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="uk-section uk-section-default">
+    <div class="uk-section uk-section-muted">
       <div class="uk-container uk-container-center uk-text-center">
         <label class="uk-form-label uk-text-large">Listado de actividades:</label>
         <ul class="uk-list">
