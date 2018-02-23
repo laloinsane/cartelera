@@ -1,6 +1,5 @@
 <template>
     <div class="default-layout">
-        <header-partial></header-partial>
         <div><slot name="contenido"></slot></div>
         <footer-partial></footer-partial>
     </div>

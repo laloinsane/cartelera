@@ -1,29 +1,47 @@
 <template>
-  <div>
-    <section>
-      <label>Selecciona tu categoria:</label>
-      <select v-model="select">
-        <option v-for="categoria in categorias"
-          :key="categoria.id">
-          {{categoria.area}}
-        </option>
-      </select>
-    </section>
-    <section v-if="select !== ''">
-      <h1>Lista de todas las actividades</h1>
-      <ul>
-        <li v-for="actividad in filteredCategoria" 
-            :key="actividad.id"
-            @click.prevent="goToActividad(actividad)">
-            <actividad-card :actividad="actividad"></actividad-card>
-        </li>
-      </ul>
-    </section>
-  </div>
+  <section>
+    <div class="uk-section uk-section-muted">
+      <div class="uk-container uk-container-center uk-text-center">
+        <form class="uk-form-stacked">
+          <div class="uk-margin">
+            <label class="uk-form-label uk-text-large" for="form-stacked-select">Selecciona tu categoria preferida:</label>
+            <div class="uk-form-controls">
+              <select class="uk-select" id="form-stacked-select" v-model="select">
+                <option v-for="categoria in categorias"
+                  :key="categoria.id">
+                  {{categoria.area}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="uk-section uk-section-default" v-if="select !== ''">
+      <div class="uk-container uk-container-center uk-text-center">
+        <label class="uk-form-label uk-text-large">Listado de actividades:</label>
+        <ul class="uk-list">
+          <li v-for="(item, index) in filteredCategoria" 
+            :key="index"
+            @click.prevent="goToActividad(item)">
+            <section v-if="(index % 2) === 0">
+              <actividad-card-right :actividad="item"></actividad-card-right>
+            </section>
+            <section v-else>
+              <actividad-card-left :actividad="item"></actividad-card-left>
+            </section>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <script>
 import ActividadCard from '@/components/ActividadCard'
+import ActividadCardRight from '@/components/ActividadCardRight'
+import ActividadCardLeft from '@/components/ActividadCardLeft'
 import {getCategorias} from '@/services/api'
 import {getActividades} from '@/services/api'
 import _ from 'lodash'
@@ -66,7 +84,9 @@ export default {
     }
   },
   components: {
-    ActividadCard
+    ActividadCard,
+    ActividadCardRight,
+    ActividadCardLeft
   }
 }
 </script>
