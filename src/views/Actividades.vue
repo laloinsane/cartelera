@@ -1,24 +1,36 @@
 <template>
-  <div>
-    <section>
-      <label>Busca tu actividad:</label>
-      <input
-          type="text"
-          v-model="filter"
-          placeholder="Introduce el nombre de tu actividad">
-      <small>Actualmente solo se pueden hacer búsquedas por nombre</small>
-    </section>
-    <section>    
-      <h1>Lista de todas las actividades</h1>
-      <ul>
-        <li v-for="actividad in filteredActividad" 
-            :key="actividad.id" 
-            @click.prevent="goToActividad(actividad)">
-            <actividad-card :actividad="actividad"></actividad-card>
-        </li>
-      </ul>
-    </section>
-  </div>
+  <section>
+    <div class="uk-section uk-section-muted">
+      <div class="uk-container uk-container-center uk-text-center">
+        <form class="uk-form-stacked">
+          <div class="uk-margin">
+            <label class="uk-form-label uk-text-large" for="form-stacked-text">Encuentra tu actividad preferida:</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" 
+                id="form-stacked-text" 
+                type="text" 
+                v-model="filter"
+                placeholder="Introduce el nombre de tu actividad">
+            </div>
+            <p class="uk-text-small uk-text-muted">Actualmente solo se pueden realizar búsquedas por nombre de actividad.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="uk-section uk-section-default">
+      <div class="uk-container uk-container-center uk-text-center">
+        <label class="uk-form-label uk-text-large">Listado de actividades:</label>
+        <ul class="uk-list">
+          <li v-for="actividad in filteredActividad" 
+              :key="actividad.id" 
+              @click.prevent="goToActividad(actividad)">
+              <actividad-card :actividad="actividad"></actividad-card>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
