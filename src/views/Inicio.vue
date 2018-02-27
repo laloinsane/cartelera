@@ -30,7 +30,6 @@ export default {
   },
   created () {
     getActividades().then(response => {
-      //console.log(response.data)
       this.actividades = response.data
     }).catch(err => console.error(err))
   },

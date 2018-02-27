@@ -16,3 +16,19 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+/*
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register(
+    '/services/sw.js',
+    {scope: '/*'}
+  ).then(succes,failure);
+}
+else{
+  console.log("el navegador no soporta service worker")
+}
+function succes(){
+  console.log('serviceWorker '+'registrado');
+}
+function failure(){
+  console.log('serviceWorker '+ 'no se pudo registrar');
+}*/
