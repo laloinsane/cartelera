@@ -1,6 +1,6 @@
 <template>
 <section>
-  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slideshow="animation: fade">
+  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slideshow="animation: fade; autoplay: true">
     <ul class="uk-slideshow-items">
       <li v-for="(item, index) in actividades"
         :key="index"
@@ -25,13 +25,16 @@ export default {
   data () {
     return {
       actividades: [],
-      limited:4
+      limited: 4
     }
   },
   created () {
-    getActividades().then(response => {
-      this.actividades = response.data
-    }).catch(err => console.error(err))
+    this.loadActividades();
   },
+  methods: {
+    loadActividades: function () {
+      getActividades().then(data => this.actividades = data);
+    }
+  }
 }
 </script>

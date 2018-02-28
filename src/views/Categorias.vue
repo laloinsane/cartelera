@@ -42,8 +42,7 @@
 import ActividadCard from '@/components/ActividadCard'
 import ActividadCardRight from '@/components/ActividadCardRight'
 import ActividadCardLeft from '@/components/ActividadCardLeft'
-import {getCategorias} from '@/services/api'
-import {getActividades} from '@/services/api'
+import {getActividades, getCategorias} from '@/services/api'
 import _ from 'lodash'
 export default {
   name: 'CategoriasView',
@@ -55,14 +54,8 @@ export default {
     }
   },
   created () {
-    getCategorias().then(response => {
-      //console.log(response.data)
-      this.categorias = response.data
-    }).catch(err => console.error(err))
-    getActividades().then(response => {
-      //console.log(response.data)
-      this.actividades = response.data
-    }).catch(err => console.error(err))
+    this.loadActividades();
+    this.loadCategorias();
   },
   computed: {
     filteredCategoria () {
@@ -73,6 +66,12 @@ export default {
     }
   },
   methods: {
+    loadActividades: function () {
+      getActividades().then(data => this.actividades = data);
+    },
+    loadCategorias: function () {
+      getCategorias().then(data => this.categorias = data);
+    },
     goToActividad (actividad) {
       this.$router.push({
         params: {
