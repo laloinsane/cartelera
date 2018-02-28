@@ -23,6 +23,10 @@ export default {
         <h3>{ actividad.color_area }</h3>
         <h3>{ actividad.subarea }</h3>
         <img src={ actividad.RutaImg }/>
+        <h3>{ actividad.cuantoFalta }</h3>
+        <h3>{ actividad.fechaLAnzamiento }</h3>
+        <h3>{ actividad.duracion }</h3>
+        <h3>{ actividad.Fecha_fin }</h3>
       </section>
     }
   }

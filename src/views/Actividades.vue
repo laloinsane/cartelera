@@ -54,7 +54,7 @@ export default {
     }
   },
 created () {
-    this.loadActividades();
+    this.loadActividades()
   },
   computed: {
     filteredActividad () {
