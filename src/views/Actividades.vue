@@ -12,11 +12,19 @@
                 v-model="filter"
                 placeholder="Introduce el nombre de tu actividad">
             </div>
-            <p class="uk-text-small uk-text-muted">Actualmente solo se pueden realizar búsquedas por nombre de actividad.</p>
           </div>
         </form>
 
-        <label class="uk-form-label uk-text-large">Listado de actividades:</label>
+        <div v-if="filteredActividad == 0">
+          <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
+        </div>
+        <div v-else-if="filteredActividad == 1">
+          <p class="uk-text-small uk-text-muted uk-text-left">{{filteredActividad.length}} actividad encontrada.</p>
+        </div>
+        <div v-else>
+          <p class="uk-text-small uk-text-muted uk-text-left">{{filteredActividad.length}} actividades encontradas.</p>
+        </div>
+        
         <div class="pad-top">
           <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
             <div class="uk-width-1-2@m"
@@ -27,7 +35,13 @@
               <actividad-card-left v-else :actividad="item"></actividad-card-left>
             </div>
           </div>
+
+          <div class="pad-top">
+            <button v-if="filter === ''" class="uk-button uk-button-secondary" @click.prevent="showMoreActividades">Cargar más actividades</button>
+          </div>
+
         </div>
+
       </div>
     </div>
   </section>
@@ -44,7 +58,8 @@ export default {
   data() {
     return {
     actividades: [],
-    filter: ''
+    filter: '',
+    limit: 12
     }
   },
 created () {
@@ -61,6 +76,9 @@ created () {
   methods: {
     loadActividades: function () {
       getActividades().then(data => this.actividades = data);
+    },
+    showMoreActividades () {
+      this.limit += 12
     },
     goToActividad (actividad) {
       this.$router.push({

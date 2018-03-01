@@ -16,7 +16,7 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-/*
+
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register(
     '/services/sw.js',
@@ -31,4 +31,4 @@ function succes(){
 }
 function failure(){
   console.log('serviceWorker '+ 'no se pudo registrar');
-}*/
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+  <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-card-hover" uk-grid>
       <div class="uk-card-media-left uk-cover-container">
           <img :src="actividad.RutaImg" alt="" uk-cover>
           <canvas width="600" height="400"></canvas>
@@ -12,7 +12,6 @@
               <p>{{ actividad.cuantoFalta }}</p>
               <p>{{ actividad.fechaLAnzamiento }}</p>
               <p>{{ actividad.duracion }}</p>
-              <p>{{ actividad.Descripcion }}</p>
           </div>
       </div>
   </div>
