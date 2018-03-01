@@ -15,27 +15,21 @@
             <p class="uk-text-small uk-text-muted">Actualmente solo se pueden realizar búsquedas por nombre de actividad.</p>
           </div>
         </form>
-      </div>
-    </div>
 
-    <div class="uk-section uk-section-muted">
-      <div class="uk-container uk-container-center uk-text-center">
         <label class="uk-form-label uk-text-large">Listado de actividades:</label>
-        <ul class="uk-list">
-          <li v-for="(item, index) in filteredActividad"
+        <div class="pad-top">
+          <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
+            <div class="uk-width-1-2@m"
+            v-for="(item, index) in filteredActividad"
             :key="index"
             @click.prevent="goToActividad(item)">
-            <section v-if="(index % 2) === 0">
-              <actividad-card-right :actividad="item"></actividad-card-right>
-            </section>
-            <section v-else>
-              <actividad-card-left :actividad="item"></actividad-card-left>
-            </section>
-          </li>
-        </ul>
+              <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
+              <actividad-card-left v-else :actividad="item"></actividad-card-left>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    
   </section>
 </template>
 
@@ -86,3 +80,8 @@ created () {
 }
 </script>
 
+<style scoped>
+.pad-top {
+  margin-top: 30px !important;
+}
+</style>

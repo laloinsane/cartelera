@@ -4,7 +4,7 @@
       <section slot="contenido">
         <nav class="uk-navbar-container" uk-navbar>
           <div class="uk-navbar-left">
-            <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+            <router-link class="uk-navbar-item uk-logo" to="/">Logo</router-link>
           </div>
           <div class="uk-navbar-right">
             <ul class="uk-navbar-nav uk-visible@m">

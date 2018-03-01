@@ -9,6 +9,9 @@
             <div class="uk-card-badge-left uk-label" :style="{ background: actividad.color_area + '!important' }">{{ actividad.area }}</div>
               <h3 class="uk-card-title"> {{ actividad.actividad }}</h3>
               <p>{{ actividad.Fecha_ini }}</p>
+              <p>{{ actividad.cuantoFalta }}</p>
+              <p>{{ actividad.fechaLAnzamiento }}</p>
+              <p>{{ actividad.duracion }}</p>
               <p>{{ actividad.Descripcion }}</p>
           </div>
       </div>
