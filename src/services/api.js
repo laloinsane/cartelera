@@ -57,9 +57,10 @@ function getActividades(){
             if(element.RutaImg==null){
                 element.RutaImg = 'https://instagram.fpmc1-1.fna.fbcdn.net/vp/62e7efa2ab7b169f89e5cfdd144f13a3/5B4D39AE/t51.2885-15/e35/26303153_1993871283961664_3279091338745741312_n.jpg';
             } 
-            element.cuantoFalta = moment().fromNow()
+            element.cuantoFalta = moment(element.Fecha_ini).fromNow() //falta implementar
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
+            element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
         }); 
         return response.data;
     })

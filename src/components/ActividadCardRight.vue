@@ -5,13 +5,14 @@
           <canvas width="600" height="400"></canvas>
       </div>
       <div>
-          <div class="uk-card-body">
-            <div class="uk-card-badge-left uk-label" :style="{ background: actividad.color_area + '!important' }">{{ actividad.area }}</div>
-              <h3 class="uk-card-title"> {{ actividad.actividad }}</h3>
-              <p>{{ actividad.Fecha_ini }}</p>
-              <p>{{ actividad.cuantoFalta }}</p>
-              <p>{{ actividad.fechaLAnzamiento }}</p>
-              <p>{{ actividad.duracion }}</p>
+          <div class="uk-card-body uk-text-left">
+            <div class="uk-card-badge-left uk-label" :style="{ background: actividad.color_area + '!important' }">
+              {{ actividad.area }}
+            </div>
+            <h3 class="uk-card-title"> {{ actividad.actividad }}</h3>
+            <p class="uk-text-small uk-text-muted">
+              Publicado: {{actividad.fechaLAnzamiento}} <br> Fecha inicio: {{actividad.fecha_inicio_formato}} <br> Duración: {{actividad.duracion}}.
+            </p>
           </div>
       </div>
   </div>
