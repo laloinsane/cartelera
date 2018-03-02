@@ -1,7 +1,7 @@
 <template>
   <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-card-hover" uk-grid>
       <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-          <img :src="actividad.RutaImg" alt="" uk-cover>
+          <img :src="actividad.RutaImgLow" alt="" uk-cover>
           <canvas width="600" height="400"></canvas>
       </div>
       <div>

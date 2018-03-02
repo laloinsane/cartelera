@@ -13,6 +13,8 @@
     "axios": "^0.17.1",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
+    "sw-precache-webpack-plugin": "^0.11.4",
+    "uglify-es": "^3.3.9",
     "uikit": "^3.0.0-beta.40",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
