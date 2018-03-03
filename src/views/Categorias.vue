@@ -21,10 +21,10 @@
             <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
           </div>
           <div v-else-if="filteredCategoria == 1">
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCategoria.length}} actividad encontrada.</p>
+            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividad encontrada.</p>
           </div>
           <div v-else>
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCategoria.length}} actividades encontradas.</p>
+            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividades encontradas.</p>
           </div>
           
           <div class="pad-top">
@@ -74,6 +74,12 @@ export default {
         return _.includes(item.area, this.select)
       })
       return filteredCategoria.slice(0, this.limit)
+    },
+    filteredCompleto () {
+      let filteredCompleto = (this.select === '') ? this.actividades : this.actividades.filter(item => {
+        return _.includes(item.area, this.select)
+      })
+      return filteredCompleto.slice(0)
     }
   },
   methods: {
