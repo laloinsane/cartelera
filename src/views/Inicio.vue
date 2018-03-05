@@ -1,5 +1,6 @@
 <template>
 <section>
+  <div uk-spinner></div>
   <div class="uk-position-relative uk-visible-toggle uk-light" uk-slideshow="animation: fade; autoplay: true">
     <ul class="uk-slideshow-items">
       <li v-for="(item, index) in actividades"
@@ -33,7 +34,11 @@ export default {
   },
   methods: {
     loadActividades: function () {
-      getActividades().then(data => this.actividades = data);
+      getActividades().then(data => this.actividades = data)
+      .then(function() {
+        // Always hide the spinner
+        document.querySelector('.uk-spinner').style.display = 'none';
+      });
     }
   }
 }
