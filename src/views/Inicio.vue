@@ -1,7 +1,7 @@
 <template>
-<section>
-  <div uk-spinner></div>
-  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slideshow="animation: fade; autoplay: true">
+<section class="principal">
+  <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay spin"></div>
+  <div class="uk-position-relative uk-visible-toggle uk-light slid" uk-slideshow="animation: fade; autoplay: true">
     <ul class="uk-slideshow-items">
       <li v-for="(item, index) in actividades"
         :key="index"
@@ -34,12 +34,26 @@ export default {
   },
   methods: {
     loadActividades: function () {
-      getActividades().then(data => this.actividades = data)
+      getActividades()
+      .then(data => this.actividades = data)
       .then(function() {
-        // Always hide the spinner
         document.querySelector('.uk-spinner').style.display = 'none';
       });
     }
   }
 }
 </script>
+
+<style scoped>
+.spin {
+  position: absolute; 
+  z-index: 2;
+}
+.slid {
+  position: absolute; 
+  z-index: 1;
+}
+.principal {
+  position: relative;
+}
+</style>

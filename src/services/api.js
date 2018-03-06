@@ -61,8 +61,9 @@ function getActividades(){
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
-        }); 
+        });
         return response.data;
+    
     })
     .catch(function (error) {
         return 'An error occured..' + error;

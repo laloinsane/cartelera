@@ -15,6 +15,8 @@
           </div>
         </form>
 
+        <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay"></div>
+        
         <div v-if="filter === ''">
           <p class="uk-text-small uk-text-muted uk-text-left">{{actividades.length}} actividades encontradas.</p>
         </div>
@@ -85,7 +87,11 @@ created () {
   },
   methods: {
     loadActividades: function () {
-      getActividades().then(data => this.actividades = data);
+      getActividades()
+      .then(data => this.actividades = data)
+      .then(function() {
+        document.querySelector('.uk-spinner').style.display = 'none';
+      });
     },
     showMoreActividades () {
       this.limit += 12
