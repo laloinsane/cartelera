@@ -18,7 +18,7 @@
         <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay"></div>
         
         <div v-if="filter === ''">
-          <p class="uk-text-small uk-text-muted uk-text-left">{{actividades.length}} actividades encontradas.</p>
+          <p class="uk-text-small uk-text-muted uk-text-left">{{eventos.length}} actividades encontradas.</p>
         </div>
         <div v-else>
           <div v-if="filteredActividad == 0">
@@ -57,38 +57,39 @@
 import ActividadCard from '@/components/ActividadCard'
 import ActividadCardRight from '@/components/ActividadCardRight'
 import ActividadCardLeft from '@/components/ActividadCardLeft'
-import {getActividades} from '@/services/api'
 import _ from 'lodash'
 export default {
   name: 'ActividadesView',
   data() {
     return {
-    actividades: [],
-    filter: '',
-    limit: 12
+      filter: '',
+      limit: 12
     }
   },
-created () {
-    this.loadActividades()
+  created () {
+    this.fetchEventos();
   },
-  computed: {
+  computed:
+  {
     filteredActividad () {
-      let filteredActividad = (this.filter === '') ? this.actividades : this.actividades.filter(item => {
+      let filteredActividad = (this.filter === '') ? this.eventos : this.eventos.filter(item => {
         return _.includes(item.actividad.toLowerCase(), this.filter.toLowerCase())
       })
       return filteredActividad.slice(0, this.limit)
     },
     filteredCompleto () {
-      let filteredCompleto = (this.filter === '') ? this.actividades : this.actividades.filter(item => {
+      let filteredCompleto = (this.filter === '') ? this.eventos : this.eventos.filter(item => {
         return _.includes(item.actividad.toLowerCase(), this.filter.toLowerCase())
       })
       return filteredCompleto.slice(0)
+    },
+    eventos() {
+      return this.$store.state.eventos
     }
   },
   methods: {
-    loadActividades: function () {
-      getActividades()
-      .then(data => this.actividades = data)
+    fetchEventos() {
+      this.$store.dispatch('fetchEventos')
       .then(function() {
         document.querySelector('.uk-spinner').style.display = 'none';
       });

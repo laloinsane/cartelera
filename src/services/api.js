@@ -63,7 +63,6 @@ function getActividades(){
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
         });
         return response.data;
-    
     })
     .catch(function (error) {
         return 'An error occured..' + error;

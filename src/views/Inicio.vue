@@ -3,9 +3,9 @@
   <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay spin"></div>
   <div class="uk-position-relative uk-visible-toggle uk-light slid" uk-slideshow="animation: fade; autoplay: true">
     <ul class="uk-slideshow-items">
-      <li v-for="(item, index) in actividades"
+      <li v-for="(item, index) in eventos"
         :key="index"
-        v-if="actividades && actividades.length > 0 && index <= limited">
+        v-if="eventos && eventos.length > 0 && index <= limited">
           <img :src="item.RutaImg" alt="" uk-cover>
           <div class="uk-overlay uk-overlay-primary uk-position-right uk-text-center uk-transition-slide-right uk-width-medium">
             <h3 class="uk-margin-remove">{{item.actividad}}</h3>
@@ -20,22 +20,25 @@
 </template>
 
 <script>
-import {getActividades} from '@/services/api'
 export default {
   name: 'InicioView',
   data () {
     return {
-      actividades: [],
       limited: 4
     }
   },
   created () {
-    this.loadActividades();
+    this.fetchProximosEventos();
+  },
+  computed:
+  {
+    eventos() {
+      return this.$store.state.proximosEventos
+    }
   },
   methods: {
-    loadActividades: function () {
-      getActividades()
-      .then(data => this.actividades = data)
+    fetchProximosEventos() {
+      this.$store.dispatch('fetchProximosEventos')
       .then(function() {
         document.querySelector('.uk-spinner').style.display = 'none';
       });

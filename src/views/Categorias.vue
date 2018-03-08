@@ -52,48 +52,51 @@
 import ActividadCard from '@/components/ActividadCard'
 import ActividadCardRight from '@/components/ActividadCardRight'
 import ActividadCardLeft from '@/components/ActividadCardLeft'
-import {getActividades, getCategorias} from '@/services/api'
 import _ from 'lodash'
 export default {
   name: 'CategoriasView',
   data() {
     return {
-    categorias: [],
     select: '',
-    actividades: [],
     limit: 12
     }
   },
   created () {
-    this.loadActividades();
-    this.loadCategorias();
+    this.fetchEventos();
+    this.fetchCategorias();
   },
   computed: {
     filteredCategoria () {
-      let filteredCategoria = (this.select === '') ? this.actividades : this.actividades.filter(item => {
+      let filteredCategoria = (this.select === '') ? this.eventos : this.eventos.filter(item => {
         return _.includes(item.area, this.select)
       })
       return filteredCategoria.slice(0, this.limit)
     },
     filteredCompleto () {
-      let filteredCompleto = (this.select === '') ? this.actividades : this.actividades.filter(item => {
+      let filteredCompleto = (this.select === '') ? this.eventos : this.eventos.filter(item => {
         return _.includes(item.area, this.select)
       })
       return filteredCompleto.slice(0)
+    },
+    eventos() {
+      return this.$store.state.eventos
+    },
+    categorias() {
+      return this.$store.state.categorias
     }
   },
   methods: {
+    fetchEventos() {
+      this.$store.dispatch('fetchEventos')
+    },
+    fetchCategorias() {
+      this.$store.dispatch('fetchCategorias')
+    },
     reset() {
       this.limit = 12
     },
     showMoreActividades () {
       this.limit += 12
-    },
-    loadActividades: function () {
-      getActividades().then(data => this.actividades = data);
-    },
-    loadCategorias: function () {
-      getCategorias().then(data => this.categorias = data);
     },
     goToActividad (actividad) {
       this.$router.push({
