@@ -1,15 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getActividades, getCategorias } from '@/services/api'
+import { getProximasActividades, getActividades, getCategorias } from '@/services/api'
 
 Vue.use(Vuex);
 
-export const ADD_PROXIMOS_EVENTOS = 'ADD_PROXIMOS_EVENTOS';
 export const ADD_EVENTOS = 'ADD_EVENTOS';
 export const ADD_CATEGORIAS = 'ADD_CATEGORIAS';
 
 const state = {
-    proximosEventos: [],
+    proximasActividades: [],
     eventos: [],
     categorias: []
 };
@@ -19,10 +18,13 @@ const getters = {
 };
 
 const actions = {
-    async fetchProximosEventos(context) {
-        return getActividades()
-            .then(proximosEventos => context.commit(ADD_PROXIMOS_EVENTOS, proximosEventos));
-   },
+    loadProximasActividades(context) {
+        return getProximasActividades()
+            .then(proximasActividades => context.commit('updateProximasActividades', proximasActividades))
+            .then(function() {
+                document.querySelector('.uk-spinner').style.display = 'none';
+              });
+    },
     async fetchEventos(context) {
         return getActividades()
             .then(eventos => context.commit(ADD_EVENTOS, eventos));
@@ -34,8 +36,8 @@ const actions = {
 };
 
 const mutations = {
-    [ADD_PROXIMOS_EVENTOS](state, proximosEventos) {
-        state.proximosEventos = proximosEventos;
+    updateProximasActividades(state, proximasActividades) {
+        state.proximasActividades = proximasActividades;
     },
     [ADD_EVENTOS](state, eventos) {
         state.eventos = eventos;

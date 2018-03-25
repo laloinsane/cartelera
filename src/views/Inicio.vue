@@ -3,9 +3,8 @@
   <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay spin"></div>
   <div class="uk-position-relative uk-visible-toggle uk-light slid" uk-slideshow="animation: fade; autoplay: true">
     <ul class="uk-slideshow-items">
-      <li v-for="(item, index) in eventos"
-        :key="index"
-        v-if="eventos && eventos.length > 0 && index <= limited">
+      <li v-for="(item, index) in actividades"
+        :key="index">
           <img :src="item.RutaImg" alt="" uk-cover>
           <div class="uk-overlay uk-overlay-primary uk-position-right uk-text-center uk-transition-slide-right uk-width-medium">
             <h3 class="uk-margin-remove">{{item.actividad}}</h3>
@@ -22,28 +21,15 @@
 <script>
 export default {
   name: 'InicioView',
-  data () {
-    return {
-      limited: 4
-    }
-  },
   created () {
-    this.fetchProximosEventos();
+    this.$store.dispatch('loadProximasActividades');
   },
   computed:
   {
-    eventos() {
-      return this.$store.state.proximosEventos
+    actividades() {
+      return this.$store.state.proximasActividades;
     }
   },
-  methods: {
-    fetchProximosEventos() {
-      this.$store.dispatch('fetchProximosEventos')
-      .then(function() {
-        document.querySelector('.uk-spinner').style.display = 'none';
-      });
-    }
-  }
 }
 </script>
 
