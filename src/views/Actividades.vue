@@ -68,6 +68,7 @@ export default {
   },
   created () {
     this.fetchEventos();
+    this.$store.dispatch('loadActividades');
   },
   computed:
   {
@@ -85,6 +86,9 @@ export default {
     },
     eventos() {
       return this.$store.state.eventos
+    },
+    actividades() {
+      return this.$store.state.actividades;
     }
   },
   methods: {
