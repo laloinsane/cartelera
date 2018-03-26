@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProximasActividades, getSegmentoActividades, getSegmentoActividadesa, getActividades, getCategorias } from '@/services/api'
+import { getProximasActividades, getSegmentoActividades, getBusquedaActividades, getActividades, getCategorias } from '@/services/api'
 
 Vue.use(Vuex);
 
@@ -13,6 +13,7 @@ const state = {
     count: 0,
     limiteActividades: 10,
     total: 0,
+    busqueda: [],
     eventos: [],
     categorias: []
 };
@@ -27,14 +28,21 @@ const actions = {
             .then(proximasActividades => context.commit('updateProximasActividades', proximasActividades))
             .then(function() {
                 document.querySelector('.uk-spinner').style.display = 'none';
-              });
+            });
     },
     loadActividades(context) {
         return getSegmentoActividades(state.limiteActividades, state.count)
             .then(actividades => context.commit('updateActividades', actividades))
             .then(function() {
                 document.querySelector('.uk-spinner').style.display = 'none';
-              });
+            });
+    },
+    loadBusquedaActividades(context, filter) {
+        return getBusquedaActividades(filter, 50)
+            .then(busqueda => context.commit('updateBusquedaActividades', busqueda))
+            .then(function() {
+                document.querySelector('.uk-spinner').style.display = 'none';
+            });
     },
     async fetchEventos(context) {
         return getActividades()
@@ -52,7 +60,18 @@ const mutations = {
     },
     updateActividades(state, actividades) {
         state.total = actividades.total;
-        state.actividades = actividades.resultados;
+        if(state.count === 0){
+            state.actividades = actividades.resultados;
+            state.count = state.count + 10;
+        }else{
+            actividades.resultados.forEach(function (value, key) {
+                state.actividades.push(value);
+            });
+            state.count = state.count + 10;
+        }
+    },
+    updateBusquedaActividades(state, busqueda) {
+        state.busqueda = busqueda;
     },
     [ADD_EVENTOS](state, eventos) {
         state.eventos = eventos;

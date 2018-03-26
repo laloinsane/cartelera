@@ -88,8 +88,8 @@ function getSegmentoActividades(limite, inicio){
     })
 }
 
-function getSegmentoActividadesa(){
-    return axios.get(`${API_URL}/eventos/limit=12&offset=0`)
+function getBusquedaActividades(texto, limite){
+    return axios.get(`${API_URL}/actividadBuscada=`+texto+`&limite=`+limite)
     .then(function (response) {
         response.data.forEach(element => {
             if(element.RutaImg==null){
@@ -106,6 +106,7 @@ function getSegmentoActividadesa(){
         return 'An error occured..' + error;
     })
 }
+
 
 function getActividades(){
     return axios.get(`${API_URL}/cartelera`)
@@ -139,7 +140,7 @@ function getCategorias(){
 export {
     getProximasActividades,
     getSegmentoActividades,
-    getSegmentoActividadesa,
+    getBusquedaActividades,
     getActividades,
     getCategorias
 }

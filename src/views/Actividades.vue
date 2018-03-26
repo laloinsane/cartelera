@@ -18,36 +18,52 @@
         <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay"></div>
         
         <div v-if="filter === ''">
-          <p class="uk-text-small uk-text-muted uk-text-left">{{eventos.length}} actividades encontradas.</p>
-        </div>
-        <div v-else>
-          <div v-if="filteredActividad == 0">
-            <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
-          </div>
-          <div v-else-if="filteredActividad == 1">
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividad encontrada.</p>
-          </div>
-          <div v-else>
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividades encontradas.</p>
-          </div>
-        </div>
-        
-        <div class="pad-top">
-          <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
-            <div class="uk-width-1-2@m"
-            v-for="(item, index) in filteredActividad"
-            :key="index"
-            @click.prevent="goToActividad(item)">
-              <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
-              <actividad-card-left v-else :actividad="item"></actividad-card-left>
+          <p class="uk-text-small uk-text-muted uk-text-left">{{totalActividades}} actividades encontradas.</p>
+
+          <div class="pad-top">
+            <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
+              <div class="uk-width-1-2@m"
+              v-for="(item, index) in actividades"
+              :key="index"
+              @click.prevent="goToActividad(item)">
+                <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
+                <actividad-card-left v-else :actividad="item"></actividad-card-left>
+              </div>
+            </div>
+
+            <div class="pad-top">
+              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividades">Cargar más actividades</button>
             </div>
           </div>
-
-          <div class="pad-top" v-if="filteredActividad.length == limit">
-            <button class="uk-button uk-button-secondary" @click.prevent="showMoreActividades">Cargar más actividades</button>
+        </div>
+        <div v-else>
+          <div v-if="busqueda == 0">
+            <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
+          </div>
+          <div v-else-if="busqueda == 1">
+            <p class="uk-text-small uk-text-muted uk-text-left">{{busqueda.length}} actividad encontrada.</p>
+          </div>
+          <div v-else>
+            <p class="uk-text-small uk-text-muted uk-text-left">{{busqueda.length}} actividades encontradas.</p>
           </div>
 
+          <div class="pad-top">
+            <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
+              <div class="uk-width-1-2@m"
+              v-for="(item, index) in busqueda"
+              :key="index"
+              @click.prevent="goToActividad(item)">
+                <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
+                <actividad-card-left v-else :actividad="item"></actividad-card-left>
+              </div>
+            </div>
+
+            <div class="pad-top">
+              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividades">Cargar más actividades</button>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -63,43 +79,84 @@ export default {
   data() {
     return {
       filter: '',
-      limit: 12
+      limit: 12,
+      limite: 10
     }
   },
   created () {
-    this.fetchEventos();
-    this.$store.dispatch('loadActividades');
+    if(this.contador === 0){
+      this.$store.dispatch('loadActividades');
+    }
+  },
+  watch: {
+    filter: function (newFilter, oldFilter) {
+      this.a = 'Waiting for you to stop typing...'
+      this.getBus()
+    }
   },
   computed:
   {
-    filteredActividad () {
-      let filteredActividad = (this.filter === '') ? this.eventos : this.eventos.filter(item => {
-        return _.includes(item.actividad.toLowerCase(), this.filter.toLowerCase())
-      })
-      return filteredActividad.slice(0, this.limit)
-    },
-    filteredCompleto () {
-      let filteredCompleto = (this.filter === '') ? this.eventos : this.eventos.filter(item => {
-        return _.includes(item.actividad.toLowerCase(), this.filter.toLowerCase())
-      })
-      return filteredCompleto.slice(0)
-    },
-    eventos() {
-      return this.$store.state.eventos
-    },
     actividades() {
       return this.$store.state.actividades;
-    }
+    },
+    totalActividades() {
+      return this.$store.state.total;
+    },
+    contador() {
+      return this.$store.state.count;
+    },
+    busqueda() {
+      return this.$store.state.busqueda;
+    },
   },
   methods: {
-    fetchEventos() {
-      this.$store.dispatch('fetchEventos')
-      .then(function() {
-        document.querySelector('.uk-spinner').style.display = 'none';
-      });
-    },
+        getBus: _.debounce(
+      function () {
+        if (this.filter !== '') {
+          this.$store.dispatch('loadBusquedaActividades', this.filter);
+        }
+        //this.answer = 'Thinking...'
+        //this.$store.dispatch('loadBusquedaActividades');
+        /*var vm = this
+        axios.get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = 'Error! Could not reach the API. ' + error
+          })*/
+      },
+      // This is the number of milliseconds we wait for the
+      // user to stop typing.
+      500
+    ),
+    getAnswer: _.debounce(
+      function () {
+        if (this.question.indexOf('?') === -1) {
+          this.answer = 'Questions usually contain a question mark. ;-)'
+          return
+        }
+        this.answer = 'Thinking...'
+        var vm = this
+        axios.get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = 'Error! Could not reach the API. ' + error
+          })
+      },
+      // This is the number of milliseconds we wait for the
+      // user to stop typing.
+      500
+    ),
+
     showMoreActividades () {
       this.limit += 12
+    },
+
+    mostrarMasActividades () {
+      this.$store.dispatch('loadActividades');
     },
     goToActividad (actividad) {
       this.$router.push({
