@@ -19,7 +19,6 @@
         
         <div v-if="filter === ''">
           <p class="uk-text-small uk-text-muted uk-text-left">{{totalActividades}} actividades encontradas.</p>
-
           <div class="pad-top">
             <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
               <div class="uk-width-1-2@m"
@@ -36,15 +35,16 @@
             </div>
           </div>
         </div>
+
         <div v-else>
-          <div v-if="busqueda == 0">
+          <div v-if="totalBusqueda == 0">
             <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
           </div>
-          <div v-else-if="busqueda == 1">
-            <p class="uk-text-small uk-text-muted uk-text-left">{{busqueda.length}} actividad encontrada.</p>
+          <div v-else-if="totalBusqueda == 1">
+            <p class="uk-text-small uk-text-muted uk-text-left">{{totalBusqueda}} actividad encontrada.</p>
           </div>
           <div v-else>
-            <p class="uk-text-small uk-text-muted uk-text-left">{{busqueda.length}} actividades encontradas.</p>
+            <p class="uk-text-small uk-text-muted uk-text-left">{{totalBusqueda}} actividades encontradas.</p>
           </div>
 
           <div class="pad-top">
@@ -58,8 +58,8 @@
               </div>
             </div>
 
-            <div class="pad-top">
-              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividades">Cargar más actividades</button>
+            <div class="pad-top" v-if="contadorBusqueda < totalBusqueda">
+              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividadesBusqueda">Cargar más actividades</button>
             </div>
           </div>
         </div>
@@ -78,20 +78,17 @@ export default {
   name: 'ActividadesView',
   data() {
     return {
-      filter: '',
-      limit: 12,
-      limite: 10
+      filter: ''
     }
   },
   created () {
-    if(this.contador === 0){
+    if(this.contadorActividades === 0){
       this.$store.dispatch('loadActividades');
     }
   },
   watch: {
     filter: function (newFilter, oldFilter) {
-      this.a = 'Waiting for you to stop typing...'
-      this.getBus()
+      this.getBusqueda()
     }
   },
   computed:
@@ -100,63 +97,36 @@ export default {
       return this.$store.state.actividades;
     },
     totalActividades() {
-      return this.$store.state.total;
+      return this.$store.state.totalActividades;
     },
-    contador() {
-      return this.$store.state.count;
+    contadorActividades() {
+      return this.$store.state.contadorActividades;
     },
     busqueda() {
       return this.$store.state.busqueda;
     },
+    totalBusqueda() {
+      return this.$store.state.totalBusqueda;
+    },
+    contadorBusqueda() {
+      return this.$store.state.contadorBusqueda;
+    },
   },
   methods: {
-        getBus: _.debounce(
+    getBusqueda: _.debounce(
       function () {
         if (this.filter !== '') {
           this.$store.dispatch('loadBusquedaActividades', this.filter);
+        }else{
+          this.$store.dispatch('loadBusquedaReset');
         }
-        //this.answer = 'Thinking...'
-        //this.$store.dispatch('loadBusquedaActividades');
-        /*var vm = this
-        axios.get('https://yesno.wtf/api')
-          .then(function (response) {
-            vm.answer = _.capitalize(response.data.answer)
-          })
-          .catch(function (error) {
-            vm.answer = 'Error! Could not reach the API. ' + error
-          })*/
       },
-      // This is the number of milliseconds we wait for the
-      // user to stop typing.
-      500
     ),
-    getAnswer: _.debounce(
-      function () {
-        if (this.question.indexOf('?') === -1) {
-          this.answer = 'Questions usually contain a question mark. ;-)'
-          return
-        }
-        this.answer = 'Thinking...'
-        var vm = this
-        axios.get('https://yesno.wtf/api')
-          .then(function (response) {
-            vm.answer = _.capitalize(response.data.answer)
-          })
-          .catch(function (error) {
-            vm.answer = 'Error! Could not reach the API. ' + error
-          })
-      },
-      // This is the number of milliseconds we wait for the
-      // user to stop typing.
-      500
-    ),
-
-    showMoreActividades () {
-      this.limit += 12
-    },
-
     mostrarMasActividades () {
       this.$store.dispatch('loadActividades');
+    },
+    mostrarMasActividadesBusqueda () {
+      this.$store.dispatch('loadMasBusquedaActividades', this.filter);
     },
     goToActividad (actividad) {
       this.$router.push({

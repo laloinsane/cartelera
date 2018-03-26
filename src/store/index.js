@@ -10,10 +10,13 @@ export const ADD_CATEGORIAS = 'ADD_CATEGORIAS';
 const state = {
     proximasActividades: [],
     actividades: [],
-    count: 0,
+    contadorActividades: 0,
     limiteActividades: 10,
-    total: 0,
+    totalActividades: 0,
     busqueda: [],
+    contadorBusqueda: 0,
+    limiteBusqueda: 10,
+    totalBusqueda: 0,
     eventos: [],
     categorias: []
 };
@@ -31,18 +34,28 @@ const actions = {
             });
     },
     loadActividades(context) {
-        return getSegmentoActividades(state.limiteActividades, state.count)
+        return getSegmentoActividades(state.limiteActividades, state.contadorActividades)
             .then(actividades => context.commit('updateActividades', actividades))
             .then(function() {
                 document.querySelector('.uk-spinner').style.display = 'none';
             });
     },
     loadBusquedaActividades(context, filter) {
-        return getBusquedaActividades(filter, 50)
+        return getBusquedaActividades(filter, state.limiteBusqueda, 0)
             .then(busqueda => context.commit('updateBusquedaActividades', busqueda))
             .then(function() {
                 document.querySelector('.uk-spinner').style.display = 'none';
             });
+    },
+    loadMasBusquedaActividades(context, filter) {
+        return getBusquedaActividades(filter, state.limiteBusqueda, state.contadorBusqueda)
+            .then(busqueda => context.commit('updateMasBusqueda', busqueda))
+            .then(function() {
+                document.querySelector('.uk-spinner').style.display = 'none';
+            });
+    },
+    loadBusquedaReset(context) {
+        context.commit('updateBusquedaReset')
     },
     async fetchEventos(context) {
         return getActividades()
@@ -59,19 +72,33 @@ const mutations = {
         state.proximasActividades = proximasActividades;
     },
     updateActividades(state, actividades) {
-        state.total = actividades.total;
-        if(state.count === 0){
+        state.totalActividades = actividades.total;
+        if(state.contadorActividades === 0){
             state.actividades = actividades.resultados;
-            state.count = state.count + 10;
+            state.contadorActividades = state.contadorActividades + 10;
         }else{
             actividades.resultados.forEach(function (value, key) {
                 state.actividades.push(value);
             });
-            state.count = state.count + 10;
+            state.contadorActividades = state.contadorActividades + 10;
         }
     },
     updateBusquedaActividades(state, busqueda) {
-        state.busqueda = busqueda;
+        state.totalBusqueda = busqueda.total;
+        state.busqueda = busqueda.resultados;
+        state.contadorBusqueda = 10;
+    },
+    updateMasBusqueda(state, busqueda) {
+        busqueda.resultados.forEach(function (value, key) {
+            state.busqueda.push(value);
+        });
+        state.contadorBusqueda = state.contadorBusqueda + 10;
+    },
+    updateBusquedaReset(state) {
+        state.busqueda = []
+        state.contadorBusqueda = 0
+        state.limiteBusqueda = 10
+        state.totalBusqueda = 0
     },
     [ADD_EVENTOS](state, eventos) {
         state.eventos = eventos;
