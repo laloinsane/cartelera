@@ -36,23 +36,14 @@ const actions = {
     loadActividades(context) {
         return getSegmentoActividades(state.limiteActividades, state.contadorActividades)
             .then(actividades => context.commit('updateActividades', actividades))
-            .then(function() {
-                document.querySelector('.uk-spinner').style.display = 'none';
-            });
     },
     loadBusquedaActividades(context, filter) {
         return getBusquedaActividades(filter, state.limiteBusqueda, 0)
             .then(busqueda => context.commit('updateBusquedaActividades', busqueda))
-            .then(function() {
-                document.querySelector('.uk-spinner').style.display = 'none';
-            });
     },
     loadMasBusquedaActividades(context, filter) {
         return getBusquedaActividades(filter, state.limiteBusqueda, state.contadorBusqueda)
             .then(busqueda => context.commit('updateMasBusqueda', busqueda))
-            .then(function() {
-                document.querySelector('.uk-spinner').style.display = 'none';
-            });
     },
     loadBusquedaReset(context) {
         context.commit('updateBusquedaReset')

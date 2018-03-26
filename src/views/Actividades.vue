@@ -15,7 +15,9 @@
           </div>
         </form>
 
-        <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay"></div>
+        <div v-if="this.contadorActividades === 0">
+          <div uk-spinner="ratio: 4" class="uk-position-center uk-overlay"></div>
+        </div>
         
         <div v-if="filter === ''">
           <p class="uk-text-small uk-text-muted uk-text-left">{{totalActividades}} actividades encontradas.</p>
@@ -78,14 +80,13 @@ export default {
   name: 'ActividadesView',
   data() {
     return {
-      filter: ''
+      filter: '',
+      display: 'none'
     }
   },
   created () {
     if(this.contadorActividades === 0){
       this.$store.dispatch('loadActividades');
-    }else{
-      
     }
   },
   watch: {
