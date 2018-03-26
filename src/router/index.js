@@ -30,5 +30,6 @@ export default new Router({
       name: 'Categorias',
       component: CategoriasView
     }
-  ]
+  ],
+  mode: 'history',
 })
