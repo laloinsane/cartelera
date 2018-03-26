@@ -84,6 +84,8 @@ export default {
   created () {
     if(this.contadorActividades === 0){
       this.$store.dispatch('loadActividades');
+    }else{
+      
     }
   },
   watch: {
