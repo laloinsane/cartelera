@@ -19,9 +19,9 @@
           <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
             <div class="uk-offcanvas-bar uk-flex uk-flex-column">
               <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-              <li><router-link to="/">Inicio</router-link></li>
-              <li><router-link to="/actividades">Actividades</router-link></li>
-              <li><router-link to="/categorias">Categorias</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/">Inicio</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/actividades">Actividades</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/categorias">Categorias</router-link></li>
               </ul>
             </div>
           </div>
@@ -45,5 +45,10 @@ export default {
 <style scoped>
 .tm-navbar-color {
   background: black !important;
+}
+.uk-offcanvas-close {
+  position: relative !important;
+  top: 0px !important;
+  right: 0px !important;
 }
 </style>
