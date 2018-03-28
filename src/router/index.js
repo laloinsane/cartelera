@@ -11,22 +11,22 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: 'cartelera/',
+      path: '/cartelera/',
       name: 'Inicio',
       component: InicioView
     },
     {
-      path: '/actividades',
+      path: '/cartelera/actividades',
       name: 'Actividades',
       component: ActividadesView
     },
     {
-      path: '/actividad/:id',
+      path: '/cartelera/actividad/:id',
       name: 'Actividad',
       component: ActividadView
     },
     {
-      path: '/categorias',
+      path: '/cartelera/categorias',
       name: 'Categorias',
       component: CategoriasView
     }
