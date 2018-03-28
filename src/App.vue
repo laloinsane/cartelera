@@ -8,9 +8,9 @@
           </div>
           <div class="uk-navbar-right">
             <ul class="uk-navbar-nav uk-visible@m">
-              <li><router-link to="/">Inicio</router-link></li>
-              <li><router-link to="/actividades">Actividades</router-link></li>
-              <li><router-link to="/categorias">Categorias</router-link></li>
+              <li><router-link to="/cartelera/">Inicio</router-link></li>
+              <li><router-link to="/cartelera/actividades">Actividades</router-link></li>
+              <li><router-link to="/cartelera/categorias">Categorias</router-link></li>
             </ul>
             <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-push"></a>
           </div>
@@ -19,9 +19,9 @@
           <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
             <div class="uk-offcanvas-bar uk-flex uk-flex-column">
               <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-              <li><router-link class="uk-offcanvas-close" to="/">Inicio</router-link></li>
-              <li><router-link class="uk-offcanvas-close" to="/actividades">Actividades</router-link></li>
-              <li><router-link class="uk-offcanvas-close" to="/categorias">Categorias</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/cartelera/">Inicio</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/cartelera/actividades">Actividades</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/cartelera/categorias">Categorias</router-link></li>
               </ul>
             </div>
           </div>
