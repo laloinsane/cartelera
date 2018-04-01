@@ -9,7 +9,7 @@ export default {
       //console.log(actividad)
       return <section>
 
-          <div class="uk-container uk-container-center">
+          <div class="uk-container uk-container-center pad-top">
             <div class="uk-card uk-card-default">
               <div class="uk-card-header">
                 <div class="uk-grid-small uk-flex-middle" uk-grid>
@@ -26,7 +26,7 @@ export default {
                 <img src={ actividad.RutaImg }/>
               </div>
               <div class="uk-card-footer">
-                <p class="uk-text-meta uk-margin-remove-top">Dirección: { actividad.direccion } / Lugar: { actividad.lugar }.</p>
+                <p class="uk-text-meta uk-margin-remove-top">Dirección: { actividad.direccion }.<br></br>Lugar: { actividad.lugar }.</p>
               </div>
             </div>
           </div>
@@ -36,3 +36,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.pad-top {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+</style>
