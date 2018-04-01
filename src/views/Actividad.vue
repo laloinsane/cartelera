@@ -8,25 +8,29 @@ export default {
     } else {
       //console.log(actividad)
       return <section>
-        <h3>{ actividad.Creado_El }</h3>
-        <h3>{ actividad.id }</h3>
-        <h3>{ actividad.Fecha }</h3>
-        <h3>{ actividad.Fecha_ini }</h3>
-        <h3>{ actividad.Hora_Ini }</h3>
-        <h3>{ actividad.Hora_Fin }</h3>
-        <h3>{ actividad.actividad }</h3>
-        <h3>{ actividad.Descripcion }</h3>
-        <h3>{ actividad.direccion }</h3>
-        <h3>{ actividad.lugar }</h3>
-        <h3>{ actividad.En_Cartelera }</h3>
-        <h3>{ actividad.area }</h3>
-        <h3>{ actividad.color_area }</h3>
-        <h3>{ actividad.subarea }</h3>
-        <img src={ actividad.RutaImg }/>
-        <h3>{ actividad.cuantoFalta }</h3>
-        <h3>{ actividad.fechaLAnzamiento }</h3>
-        <h3>{ actividad.duracion }</h3>
-        <h3>{ actividad.Fecha_fin }</h3>
+
+          <div class="uk-container uk-container-center">
+            <div class="uk-card uk-card-default">
+              <div class="uk-card-header">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                  <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">{ actividad.actividad }</h3>
+                    <p class="uk-text-meta uk-margin-remove-top">Publicado: { actividad.fechaLAnzamiento } / Fecha inicio: { actividad.fecha_inicio_formato } / Duración: { actividad.duracion }.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="uk-card-body uk-text-center">
+                <p>{ actividad.Descripcion }</p>
+              </div>
+              <div class="uk-card-body uk-text-center">
+                <img src={ actividad.RutaImg }/>
+              </div>
+              <div class="uk-card-footer">
+                <p class="uk-text-meta uk-margin-remove-top">Dirección: { actividad.direccion } / Lugar: { actividad.lugar }.</p>
+              </div>
+            </div>
+          </div>
+
       </section>
     }
   }

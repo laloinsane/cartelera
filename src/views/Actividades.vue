@@ -10,7 +10,8 @@
                 id="form-stacked-text" 
                 type="text" 
                 v-model="filter"
-                placeholder="Introduce el nombre de tu actividad">
+                placeholder="Introduce el nombre de tu actividad"
+                v-on:keydown.enter.prevent='prevenirEnter'>
             </div>
           </div>
         </form>
@@ -125,6 +126,8 @@ export default {
         }
       },
     ),
+    prevenirEnter: function(e){
+    },
     mostrarMasActividades () {
       this.$store.dispatch('loadActividades');
     },
