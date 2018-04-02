@@ -39,7 +39,7 @@
             </div>
 
             <div class="pad-top" v-if="contadorBusquedaCategoria < totalBusquedaCategoria">
-              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividadesBusquedaCategoria">Cargar más actividades</button>
+              <button class="uk-button uk-button-secondary" id="moreCategoria" @click.prevent="mostrarMasActividadesBusquedaCategoria">Cargar más actividades</button>
             </div>
           </div>
 
@@ -93,6 +93,7 @@ export default {
       },
     ),
     mostrarMasActividadesBusquedaCategoria () {
+      document.getElementById("moreCategoria").disabled = true;
       this.$store.dispatch('loadMasBusquedaCategoria', this.select);
     },
     goToActividad (actividad) {

@@ -34,7 +34,7 @@
             </div>
 
             <div class="pad-top">
-              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividades">Cargar más actividades</button>
+              <button class="uk-button uk-button-secondary" id="more" @click.prevent="mostrarMasActividades">Cargar más actividades</button>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="pad-top" v-if="contadorBusqueda < totalBusqueda">
-              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividadesBusqueda">Cargar más actividades</button>
+              <button class="uk-button uk-button-secondary" id="moreBusqueda" @click.prevent="mostrarMasActividadesBusqueda">Cargar más actividades</button>
             </div>
           </div>
         </div>
@@ -129,9 +129,11 @@ export default {
     prevenirEnter: function(e){
     },
     mostrarMasActividades () {
+      document.getElementById("more").disabled = true;
       this.$store.dispatch('loadActividades');
     },
     mostrarMasActividadesBusqueda () {
+      document.getElementById("moreBusqueda").disabled = true;
       this.$store.dispatch('loadMasBusquedaActividades', this.filter);
     },
     goToActividad (actividad) {

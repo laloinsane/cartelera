@@ -36,14 +36,23 @@ const actions = {
     loadActividades(context) {
         return getSegmentoActividades(state.limiteActividades, state.contadorActividades)
             .then(actividades => context.commit('updateActividades', actividades))
+            .then(function() {
+                document.getElementById("more").disabled = false;
+            });
     },
     loadBusquedaActividades(context, filter) {
         return getBusquedaActividades(filter, state.limiteBusqueda, 0)
             .then(busqueda => context.commit('updateBusquedaActividades', busqueda))
+            .then(function() {
+                document.getElementById("moreBusqueda").disabled = false;
+            });
     },
     loadMasBusquedaActividades(context, filter) {
         return getBusquedaActividades(filter, state.limiteBusqueda, state.contadorBusqueda)
             .then(busqueda => context.commit('updateMasBusqueda', busqueda))
+            .then(function() {
+                document.getElementById("moreBusqueda").disabled = false;
+            });
     },
     loadBusquedaReset(context) {
         context.commit('updateBusquedaReset')
@@ -59,6 +68,9 @@ const actions = {
     loadMasBusquedaCategoria(context, select) {
         return getBusquedaCategoria(select, state.limiteBusquedaCategoria, state.contadorBusquedaCategoria)
             .then(busquedaCategoria => context.commit('updateMasBusquedaCategoria', busquedaCategoria))
+            .then(function() {
+                document.getElementById("moreCategoria").disabled = false;
+            });
     },
     loadBusquedaCategoriaReset(context) {
         context.commit('updateBusquedaCategoriaReset')
