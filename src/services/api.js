@@ -107,10 +107,20 @@ function getBusquedaActividades(texto, limite, inicio){
     })
 }
 
-/*function getBusquedaActividades(texto, limite){
-    return axios.get(`${API_URL}/actividadBuscada=`+texto+`&limite=`+limite)
+function getCategorias(){
+    return axios.get(`${API_URL}/categorias`)
     .then(function (response) {
-        response.data.forEach(element => {
+        return response.data;
+    })
+    .catch(function (error) {
+        return 'An error occured..' + error;
+    })
+}
+
+function getBusquedaCategoria(texto, limite, inicio){
+    return axios.get(`${API_URL}/busquedaCategoria/texto=`+texto+`&limit=`+limite+`&offset=`+inicio)
+    .then(function (response) {
+        response.data.resultados.forEach(element => {
             if(element.RutaImg==null){
                 element.RutaImg = 'https://instagram.fpmc1-1.fna.fbcdn.net/vp/62e7efa2ab7b169f89e5cfdd144f13a3/5B4D39AE/t51.2885-15/e35/26303153_1993871283961664_3279091338745741312_n.jpg';
             } 
@@ -124,8 +134,7 @@ function getBusquedaActividades(texto, limite, inicio){
     .catch(function (error) {
         return 'An error occured..' + error;
     })
-}*/
-
+}
 
 function getActividades(){
     return axios.get(`${API_URL}/cartelera`)
@@ -146,20 +155,10 @@ function getActividades(){
     })
 }
 
-function getCategorias(){
-    return axios.get(`${API_URL}/categorias`)
-    .then(function (response) {
-        return response.data;
-    })
-    .catch(function (error) {
-        return 'An error occured..' + error;
-    })
-}
-
 export {
     getProximasActividades,
     getSegmentoActividades,
     getBusquedaActividades,
-    getActividades,
-    getCategorias
+    getCategorias,
+    getBusquedaCategoria
 }

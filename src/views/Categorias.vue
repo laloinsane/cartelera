@@ -6,7 +6,7 @@
           <div class="uk-margin">
             <label class="uk-form-label uk-text-large" for="form-stacked-select">Selecciona tu categoria preferida:</label>
             <div class="uk-form-controls">
-              <select class="uk-select" id="form-stacked-select" v-model="select" v-on:change="reset">
+              <select class="uk-select" id="form-stacked-select" v-model="select">
                 <option v-for="categoria in categorias"
                   :key="categoria.id">
                   {{categoria.area}}
@@ -17,20 +17,20 @@
         </form>
 
         <div v-if="select !== ''">
-          <div v-if="filteredCategoria == 0">
+          <div v-if="totalBusquedaCategoria == 0">
             <p class="uk-text-small uk-text-muted uk-text-left">No se encontraron actividades.</p>
           </div>
-          <div v-else-if="filteredCategoria == 1">
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividad encontrada.</p>
+          <div v-else-if="totalBusquedaCategoria == 1">
+            <p class="uk-text-small uk-text-muted uk-text-left">{{totalBusquedaCategoria}} actividad encontrada.</p>
           </div>
           <div v-else>
-            <p class="uk-text-small uk-text-muted uk-text-left">{{filteredCompleto.length}} actividades encontradas.</p>
+            <p class="uk-text-small uk-text-muted uk-text-left">{{totalBusquedaCategoria}} actividades encontradas.</p>
           </div>
           
           <div class="pad-top">
             <div class="uk-grid-match uk-grid-small uk-text-center" uk-grid>  
               <div class="uk-width-1-2@m"
-              v-for="(item, index) in filteredCategoria"
+              v-for="(item, index) in busquedaCategoria"
               :key="index"
               @click.prevent="goToActividad(item)">
                 <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
@@ -38,10 +38,11 @@
               </div>
             </div>
 
-            <div class="pad-top" v-if="filteredCategoria.length == limit">
-              <button class="uk-button uk-button-secondary" @click.prevent="showMoreActividades">Cargar más actividades</button>
+            <div class="pad-top" v-if="contadorBusquedaCategoria < totalBusquedaCategoria">
+              <button class="uk-button uk-button-secondary" @click.prevent="mostrarMasActividadesBusquedaCategoria">Cargar más actividades</button>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -57,46 +58,42 @@ export default {
   name: 'CategoriasView',
   data() {
     return {
-    select: '',
-    limit: 12
+    select: ''
     }
   },
   created () {
-    this.fetchEventos();
-    this.fetchCategorias();
+    this.$store.dispatch('loadCategorias');
+    this.$store.dispatch('loadBusquedaCategoriaReset');
   },
-  computed: {
-    filteredCategoria () {
-      let filteredCategoria = (this.select === '') ? this.eventos : this.eventos.filter(item => {
-        return _.includes(item.area, this.select)
-      })
-      return filteredCategoria.slice(0, this.limit)
-    },
-    filteredCompleto () {
-      let filteredCompleto = (this.select === '') ? this.eventos : this.eventos.filter(item => {
-        return _.includes(item.area, this.select)
-      })
-      return filteredCompleto.slice(0)
-    },
-    eventos() {
-      return this.$store.state.eventos
-    },
-    categorias() {
-      return this.$store.state.categorias
+  watch: {
+    select: function (newFilter, oldFilter) {
+      this.getBusquedaCategoria()
     }
   },
+  computed: {
+    categorias() {
+      return this.$store.state.categorias;
+    },
+    busquedaCategoria() {
+      return this.$store.state.busquedaCategoria;
+    },
+    totalBusquedaCategoria() {
+      return this.$store.state.totalBusquedaCategoria;
+    },
+    contadorBusquedaCategoria() {
+      return this.$store.state.contadorBusquedaCategoria;
+    },
+  },
   methods: {
-    fetchEventos() {
-      this.$store.dispatch('fetchEventos')
-    },
-    fetchCategorias() {
-      this.$store.dispatch('fetchCategorias')
-    },
-    reset() {
-      this.limit = 12
-    },
-    showMoreActividades () {
-      this.limit += 12
+    getBusquedaCategoria: _.debounce(
+      function () {
+        if (this.select !== '') {
+          this.$store.dispatch('loadBusquedaCategoria', this.select);
+        }
+      },
+    ),
+    mostrarMasActividadesBusquedaCategoria () {
+      this.$store.dispatch('loadMasBusquedaCategoria', this.select);
     },
     goToActividad (actividad) {
       this.$router.push({

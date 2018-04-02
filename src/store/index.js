@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProximasActividades, getSegmentoActividades, getBusquedaActividades, getActividades, getCategorias } from '@/services/api'
+import { getProximasActividades, getSegmentoActividades, getBusquedaActividades, getCategorias, getBusquedaCategoria } from '@/services/api'
 
 Vue.use(Vuex);
-
-export const ADD_EVENTOS = 'ADD_EVENTOS';
-export const ADD_CATEGORIAS = 'ADD_CATEGORIAS';
 
 const state = {
     proximasActividades: [],
@@ -17,8 +14,11 @@ const state = {
     contadorBusqueda: 0,
     limiteBusqueda: 10,
     totalBusqueda: 0,
-    eventos: [],
-    categorias: []
+    categorias: [],
+    busquedaCategoria: [],
+    contadorBusquedaCategoria: 0,
+    limiteBusquedaCategoria: 10,
+    totalBusquedaCategoria: 0
 };
 
 const getters = {
@@ -48,14 +48,21 @@ const actions = {
     loadBusquedaReset(context) {
         context.commit('updateBusquedaReset')
     },
-    async fetchEventos(context) {
-        return getActividades()
-            .then(eventos => context.commit(ADD_EVENTOS, eventos));
-    },
-    async fetchCategorias(context) {
+    loadCategorias(context) {
         return getCategorias()
-            .then(categorias => context.commit(ADD_CATEGORIAS, categorias));
-    }
+            .then(categorias => context.commit('updateCategorias', categorias));
+    },
+    loadBusquedaCategoria(context, select) {
+        return getBusquedaCategoria(select, state.limiteBusquedaCategoria, 0)
+            .then(busquedaCategoria => context.commit('updateBusquedaCategoria', busquedaCategoria))
+    },
+    loadMasBusquedaCategoria(context, select) {
+        return getBusquedaCategoria(select, state.limiteBusquedaCategoria, state.contadorBusquedaCategoria)
+            .then(busquedaCategoria => context.commit('updateMasBusquedaCategoria', busquedaCategoria))
+    },
+    loadBusquedaCategoriaReset(context) {
+        context.commit('updateBusquedaCategoriaReset')
+    },
 };
 
 const mutations = {
@@ -91,11 +98,25 @@ const mutations = {
         state.limiteBusqueda = 10
         state.totalBusqueda = 0
     },
-    [ADD_EVENTOS](state, eventos) {
-        state.eventos = eventos;
-    },
-    [ADD_CATEGORIAS](state, categorias) {
+    updateCategorias(state, categorias) {
         state.categorias = categorias;
+    },
+    updateBusquedaCategoria(state, busquedaCategoria) {
+        state.totalBusquedaCategoria = busquedaCategoria.total;
+        state.busquedaCategoria = busquedaCategoria.resultados;
+        state.contadorBusquedaCategoria = 10;
+    },
+    updateMasBusquedaCategoria(state, busquedaCategoria) {
+        busquedaCategoria.resultados.forEach(function (value, key) {
+            state.busquedaCategoria.push(value);
+        });
+        state.contadorBusquedaCategoria = state.contadorBusquedaCategoria + 10;
+    },
+    updateBusquedaCategoriaReset(state) {
+        state.busquedaCategoria = []
+        state.contadorBusquedaCategoria = 0
+        state.limiteBusquedaCategoria = 10
+        state.totalBusquedaCategoria = 0
     }
 }
 
