@@ -4,7 +4,9 @@
       <section slot="contenido">
         <nav class="uk-navbar-container" uk-navbar>
           <div class="uk-navbar-left">
-            <router-link class="uk-navbar-item uk-logo" to="/cartelera/">Logo</router-link>
+            <router-link class="uk-navbar-item uk-logo" to="/cartelera/">
+              <img src="../static/img/icons-ccpm/logo-ccpm-300x70.jpg" class="uk-margin-small-right">
+            </router-link>
           </div>
           <div class="uk-navbar-right">
             <ul class="uk-navbar-nav uk-visible@m">
