@@ -61,6 +61,9 @@ function getProximasActividades(){
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
+            element.fecha_inicio_formato_day = moment(element.Fecha_ini).format('DD')
+            element.fecha_inicio_formato_month = moment(element.Fecha_ini).format('MMMM')
+            element.fecha_inicio_formato_year = moment(element.Fecha_ini).format('YYYY')
         });
         return response.data;
     })
@@ -80,6 +83,9 @@ function getSegmentoActividades(limite, inicio){
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
+            element.fecha_inicio_formato_day = moment(element.Fecha_ini).format('DD')
+            element.fecha_inicio_formato_month = moment(element.Fecha_ini).format('MMMM')
+            element.fecha_inicio_formato_year = moment(element.Fecha_ini).format('YYYY')
         });
         return response.data;
     })
@@ -99,6 +105,9 @@ function getBusquedaActividades(texto, limite, inicio){
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
+            element.fecha_inicio_formato_day = moment(element.Fecha_ini).format('DD')
+            element.fecha_inicio_formato_month = moment(element.Fecha_ini).format('MMMM')
+            element.fecha_inicio_formato_year = moment(element.Fecha_ini).format('YYYY')
         });
         return response.data;
     })
@@ -128,6 +137,9 @@ function getBusquedaCategoria(texto, limite, inicio){
             element.fechaLAnzamiento = moment(element.Creado_El).fromNow()
             element.duracion = duracionEvento(element.Fecha_ini, element.Fecha_fin)
             element.fecha_inicio_formato = moment(element.Fecha_ini).format('DD/MM/YYYY')
+            element.fecha_inicio_formato_day = moment(element.Fecha_ini).format('DD')
+            element.fecha_inicio_formato_month = moment(element.Fecha_ini).format('MMMM')
+            element.fecha_inicio_formato_year = moment(element.Fecha_ini).format('YYYY')
         });
         return response.data;
     })
