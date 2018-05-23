@@ -1,7 +1,14 @@
 <template>
   <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-card-hover" uk-grid>
       <div class="uk-card-media-left uk-cover-container">
-          <img :src="actividad.RutaImg" alt="" uk-cover>
+          <img :src="actividad.RutaImg" alt="" class="img-tamaño-1"
+            style="
+              max-width: none;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              -webkit-transform: translate(-50%,-50%);
+              transform: translate(-50%,-50%);" >
           <canvas width="600" height="400"></canvas>
       </div>
       <div>
@@ -9,9 +16,31 @@
             <div class="uk-card-badge uk-label" :style="{ background: actividad.color_area + '!important' }">
               {{ actividad.area }}
             </div>
-            <h3 class="uk-card-title mar-top"> {{ actividad.actividad }} </h3>
+
+            <div class="visible-note oculto-note">
+              <div class="date centro">
+                <span class="month">{{actividad.fecha_inicio_formato_month}}</span>
+                <h1 class="day">{{actividad.fecha_inicio_formato_day}}</h1>
+              </div>
+              <h3 class="uk-card-title sinmar"> {{ actividad.actividad }}</h3>
+            </div>
+
+            <div class="visible-movil oculto-movil">
+              <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                  <h3 class="uk-card-title sinmar"> {{ actividad.actividad }}</h3>
+                </div>
+                <div class="uk-width-auto">
+                  <div class="date">
+                    <span class="month">{{actividad.fecha_inicio_formato_month}}</span>
+                    <h1 class="day">{{actividad.fecha_inicio_formato_day}}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          
             <p class="uk-text-small uk-text-muted">
-              Publicado: {{actividad.fechaLAnzamiento}} <br> Fecha inicio: {{actividad.fecha_inicio_formato}} <br> Duración: {{actividad.duracion}}.
+              Publicado: {{actividad.fechaLAnzamiento}}.
             </p>
           </div>
       </div>
@@ -33,5 +62,102 @@ export default {
 <style scoped>
 .mar-top {
   margin-top: 40px !important;
+}
+.date {
+	display: block;
+	width: 100px;
+	height: 110px;
+	margin: 40px 0px;
+	background: #fff;
+	text-align: center;
+	font-family: 'Helvetica', sans-serif;
+	position: relative;
+}
+.date .binds {
+	position: absolute;
+	height: 15px;
+	width: 60px;
+	background: transparent;
+	border: 2px solid #999;
+	border-width: 0 5px;
+	top: -6px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.date .month {
+	background: #555;
+	display: block;
+	padding: 8px 0;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	border-bottom: 2px solid #333;
+	box-shadow: inset 0 -1px 0 0 #666;
+}
+.date .day {
+	display: block;
+	margin: 0;
+	padding: 10px 0;
+	font-size: 48px;
+	box-shadow: 0 0 3px #ccc;
+	position: relative;
+}
+.date .day::after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 96%;
+	position: absolute;
+	top: 3px;
+	left: 2%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+.date .day::before {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 90%;
+	position: absolute;
+	top: 6px;
+	left: 5%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+.sinmar {
+  margin-top: 0px !important;
+}
+.oculto-note {
+  display: none;
+  visibility: hidden;
+}
+.visible-movil {
+  display: block;
+  visibility: visible;
+}
+@media only screen and (min-width: 640px) {
+  .visible-note {
+    display: block;
+    visibility: visible;
+  }
+  .oculto-movil {
+    display: none;
+    visibility: hidden;
+  }
+}
+.centro{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+@media only screen and (max-width: 959px) {
+  .img-tamaño-1 {
+    height: 500px !important;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .img-tamaño-1 {
+    height: 600px !important;
+  }
 }
 </style>
