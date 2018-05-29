@@ -9,7 +9,7 @@
               top: 50%;
               -webkit-transform: translate(-50%,-50%);
               transform: translate(-50%,-50%);" >
-          <canvas width="600" height="400"></canvas>
+          <canvas width="600" height="300"></canvas>
       </div>
       <div>
           <div class="uk-card-body uk-text-left">
@@ -153,7 +153,12 @@ export default {
   margin-left: auto !important;
   margin-right: auto !important;
 }
-@media only screen and (max-width: 959px) {
+@media only screen and (max-width: 639px) {
+  .img-tamaño-1 {
+    width: 700px !important;
+  }
+}
+@media only screen and (min-width: 640px) and (max-width: 959px) {
   .img-tamaño-1 {
     height: 500px !important;
   }
