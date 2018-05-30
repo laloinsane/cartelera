@@ -1,6 +1,9 @@
 <script>
 export default {
   name: 'ActividadView',
+  mounted () {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  },
   render (h) {
     let actividad = this.$route.params.actividad
     if (!actividad) {
