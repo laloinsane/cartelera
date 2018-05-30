@@ -28,8 +28,8 @@
               v-for="(item, index) in actividades"
               :key="index"
               @click.prevent="goToActividad(item)">
-                <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
-                <actividad-card-left v-else :actividad="item"></actividad-card-left>
+                <actividad-card-right v-if="(index % 2) === 0" :actividad="item" class="cursor"></actividad-card-right>
+                <actividad-card-left v-else :actividad="item" class="cursor"></actividad-card-left>
               </div>
             </div>
 
@@ -56,8 +56,8 @@
               v-for="(item, index) in busqueda"
               :key="index"
               @click.prevent="goToActividad(item)">
-                <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
-                <actividad-card-left v-else :actividad="item"></actividad-card-left>
+                <actividad-card-right v-if="(index % 2) === 0" :actividad="item" class="cursor"></actividad-card-right>
+                <actividad-card-left v-else :actividad="item" class="cursor"></actividad-card-left>
               </div>
             </div>
 
@@ -157,5 +157,8 @@ export default {
 <style scoped>
 .pad-top {
   margin-top: 30px !important;
+}
+.cursor {
+    cursor:pointer;
 }
 </style>

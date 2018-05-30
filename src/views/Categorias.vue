@@ -35,8 +35,8 @@
               v-for="(item, index) in busquedaCategoria"
               :key="index"
               @click.prevent="goToActividad(item)">
-                <actividad-card-right v-if="(index % 2) === 0" :actividad="item"></actividad-card-right>
-                <actividad-card-left v-else :actividad="item"></actividad-card-left>
+                <actividad-card-right v-if="(index % 2) === 0" :actividad="item" class="cursor"></actividad-card-right>
+                <actividad-card-left v-else :actividad="item" class="cursor"></actividad-card-left>
               </div>
             </div>
 
@@ -126,5 +126,8 @@ export default {
 }
 .pad-bottom {
   padding-bottom: 300px;
+}
+.cursor {
+    cursor:pointer;
 }
 </style>
