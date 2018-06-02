@@ -4,15 +4,15 @@
       <section slot="contenido">
         <nav class="uk-navbar-container" uk-navbar>
           <div class="uk-navbar-left">
-            <router-link class="uk-navbar-item uk-logo" to="/cartelera/">
+            <router-link class="uk-navbar-item uk-logo" to="/index.html">
               <img src="../static/img/icons-ccpm/logo-ccpm-160x81.png" class="uk-margin-small-right">
             </router-link>
           </div>
           <div class="uk-navbar-right">
             <ul class="uk-navbar-nav uk-visible@m">
-              <li><router-link to="/cartelera/">Inicio</router-link></li>
-              <li><router-link to="/cartelera/actividades">Actividades</router-link></li>
-              <li><router-link to="/cartelera/categorias">Categorias</router-link></li>
+              <li><router-link to="/index.html">Inicio</router-link></li>
+              <li><router-link to="/actividades.html">Actividades</router-link></li>
+              <li><router-link to="/categorias.html">Categorias</router-link></li>
             </ul>
             <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-push"></a>
           </div>
@@ -21,9 +21,9 @@
           <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
             <div class="uk-offcanvas-bar uk-flex uk-flex-column">
               <ul class="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
-              <li><router-link class="uk-offcanvas-close" to="/cartelera/">Inicio</router-link></li>
-              <li><router-link class="uk-offcanvas-close" to="/cartelera/actividades">Actividades</router-link></li>
-              <li><router-link class="uk-offcanvas-close" to="/cartelera/categorias">Categorias</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/index.html">Inicio</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/actividades.html">Actividades</router-link></li>
+              <li><router-link class="uk-offcanvas-close" to="/categorias.html">Categorias</router-link></li>
               </ul>
             </div>
           </div>
