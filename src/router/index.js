@@ -21,7 +21,7 @@ export default new Router({
       component: ActividadesView
     },
     {
-      path: '/actividad/:id',
+      path: '/actividades/:id',
       name: 'Actividad',
       component: ActividadView
     },
@@ -31,5 +31,5 @@ export default new Router({
       component: CategoriasView
     }
   ],
-  //mode: 'history',
+  mode: 'history',
 })
