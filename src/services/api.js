@@ -2,7 +2,8 @@ import axios from 'axios';
 import moment from 'moment';
 moment.locale('es')
 
-const API_URL = 'http://localhost/api-ccpm/public/index.php/api'
+const API_URL = 'https://www.culturapuertomontt.cl/inicio/wp-json/cartelera/v1'
+//const API_URL = 'http://localhost/api-ccpm/public/index.php/api'
 
 function horasDias(horas){
     var cont = 1;
