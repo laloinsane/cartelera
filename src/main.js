@@ -3,12 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'uikit/dist/js/uikit.min.js'
-import 'uikit/dist/js/uikit-icons.min.js'
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
 import 'uikit/dist/css/uikit.min.css'
 import store from './store'
 
+// loads the Icon plugin
+UIkit.use(Icons);
+
 Vue.config.productionTip = false
+
+window.UIkit = UIkit;
 
 /* eslint-disable no-new */
 new Vue({
