@@ -9,32 +9,32 @@
           </div>
         </form>
 
-        <QrcodeReader
-          :paused="paused"
-          @decode="onDecode"
-          @init="onInit">
-          <div v-show="paused" class="validation-layer">
-            <div class="decode-result">
-              <u>Decoded</u>: {{ content }}
+        <div class="pad-top">
+          <QrcodeReader
+            :paused="paused"
+            @decode="onDecode"
+            @init="onInit">
+            <div v-show="paused" class="validation-layer">
+
+              <div class="validation-notice">
+                <div v-if="validating">
+                  Verificando Código QR...
+                </div>
+
+                <div v-else-if="isValid" class="text-success">
+                  Código QR válido.
+                </div>
+
+                <div v-else class="text-danger">
+                  Código QR inválido.
+                </div>
+                
+              </div>
             </div>
-
-            <div class="validation-notice">
-              <div v-if="validating">
-                Long validation in progress...
-              </div>
-
-              <div v-else-if="isValid" class="text-success">
-                This is a URL
-              </div>
-
-              <div v-else class="text-danger">
-                This is NOT a URL!
-              </div>
-            </div>
-          </div>
-          <LoadingIndicator v-show="loading" />
-        </QrcodeReader>
-
+            <LoadingIndicator v-show="loading" />
+          </QrcodeReader>
+        </div>
+      
       </div>
     </div>
   </section>
@@ -122,5 +122,8 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-style: italic;
+}
+.pad-top {
+  margin-top: 30px !important;
 }
 </style>

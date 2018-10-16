@@ -1,6 +1,6 @@
 <template>
   <div class="loading-indicator">
-    Loading...
+    Cargando...
   </div>
 </template>
 
